@@ -1,3 +1,3 @@
 [submodule "soundbyte-modules"]
 	path = soundbyte-modules
-	url = git@github.com:brettcvz/soundbyte-modules.git
+	url = https://github.com/brettcvz/soundbyte-modules.git
