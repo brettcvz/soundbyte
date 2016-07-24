@@ -21,7 +21,7 @@ class MFRC522_SPI():
         self.listening = False
 
     def cleanup(self):
-        self.listen = False
+        self.listening = False
         GPIO.output(self.reset_pin, GPIO.LOW)
         GPIO.cleanup()
 
@@ -39,12 +39,10 @@ class MFRC522_SPI():
                 time.sleep(self.POLLING_INTERVAL)
                 uid, data = self.read_card()
 
-            print uid
             if uid == self.current_uid:
                 time.sleep(self.POLLING_INTERVAL)
                 continue
 
-            print "New card!"
             self.current_uid = uid
             onnewcard(uid, None)
             time.sleep(self.POLLING_INTERVAL)

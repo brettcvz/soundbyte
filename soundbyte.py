@@ -89,9 +89,11 @@ class SoundByte():
 
             # The one special module_id: hard refresh the list of modules
             if module_id == self.REFRESH_MODULE_ID:
+                self.play("refresh_programs.wav", background=True)
                 self.fetch_modules()
+                for m in self.modules.values():
+                    reload(m)
                 self.modules = {}
-                self.play("refresh_programs.wav")
                 return
 
             if module_id not in self.modules:
@@ -156,8 +158,13 @@ class SoundByte():
         self.log(output)
         #TODO: handle output somehow
 
-    def play(self, message):
-        subprocess.call(["aplay", "-q", "messages/%s" % (message)])
+    def play(self, message, background=False):
+        command = ["aplay", "-q", "messages/%s" % (message)]
+
+        if background:
+            subprocess.Popen(command)
+        else:
+            subprocess.call(command)
 
 if __name__ == "__main__":
     args = parser.parse_args()
